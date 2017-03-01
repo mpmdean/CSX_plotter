@@ -43,9 +43,7 @@ def get_columns(header):
 
 def get_scanned_motor(header):
     try:
-        name_field_string = [p for p in header.start.plan_args['motor'].split(',') if p.strip().startswith('name')]
-        name_field_list = name_field_string[0].split("\'")
-        return name_field_list[1]
+        return ' '.join(header.start.motors)
     except:
         return ''
 
