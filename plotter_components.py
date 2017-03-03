@@ -73,6 +73,11 @@ clear_button = widgets.Button(description='Clear')
 
 starting_values_display = widgets.Textarea(width='500px')
 
+filename_widget = widgets.Text(description='File name', value='test.txt')
+
+save_button = widgets.Button(description='Save')
+
+
 # bindings
 
 def wrap_refresh(change):
@@ -106,6 +111,12 @@ def wrap_select_scan_id(change):
         select_y_widget.value = default_y
     except:
         pass
+    
+    try:
+        filename_widget.value = get_scan_desc(select_scan_id_widget.value) + '.txt'
+    except:
+        filename_widget.value = 'test.txt'
+        
 
 select_scan_id_widget.observe(wrap_select_scan_id)
 
@@ -134,3 +145,13 @@ def wrap_clearit(change):
     
 clear_button.on_click(wrap_clearit)
 
+def wrap_saveit(change):
+    header = select_scan_id_widget.value
+    table = get_table(header)
+    x = table[select_x_widget.value]
+    y = table[select_y_widget.value]
+    mon = table[select_mon_widget.value]
+    data = pd.concat([x, y, mon], axis=1)
+    data.to_csv(filename_widget.value)
+    
+save_button.on_click(wrap_saveit)
