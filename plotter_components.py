@@ -15,7 +15,9 @@ new_colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728',
               '#9467bd', '#8c564b', '#e377c2', '#7f7f7f',
               '#bcbd22', '#17becf']
 
-mpl.rcParams['axes.prop_cycle'] = cycler(color=new_colors)
+new_markers = ['s', 'o', 'D', '>', '<', '^', 'v', 'X', '*', 'p']
+
+mpl.rcParams['axes.prop_cycle'] = cycler(color=new_colors, marker=new_markers)
 
 
 # Functions
@@ -105,10 +107,14 @@ def wrap_select_scan_id(change):
         pass
     
     select_y_widget.options = columns
-    default_y = 'fccd_stats1_total'
     select_mon_widget.options = columns
     try:
-        select_y_widget.value = default_y
+        select_y_widget.value = 'fccd_stats4_total'
+    except:
+        pass
+    
+    try:
+        select_mon_widget.value = 'ring_curr'
     except:
         pass
     
